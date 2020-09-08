@@ -148,7 +148,17 @@ resource "aws_security_group" "MySQL-sec" {
     to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = [aws_subnet.Public_subnet.cidr_block]
+    security_groups = [aws_security_group.Wordpress-sec.id]
   }
+   ingress {
+    description = "Allow Wordpress-SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [aws_subnet.Public_subnet.cidr_block]
+    security_groups = [aws_security_group.Wordpress-sec.id]
+  }
+
 
 
   egress {
